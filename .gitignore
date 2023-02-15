@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /dotBot/appsettings.Development.json
 /dotBot/appsettings.json
+/dotBot/appsettings.json
