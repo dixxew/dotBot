@@ -9,6 +9,8 @@ namespace dotBot.Models
         public string Nickname { get; set; }
         public bool IsAdmin { get; set; }
         public GameStat GameStat { get; set; }
+        public int Marry { get; set; }
+        public int MarryageRequest { get; set; }
 
     }
     public class GameStat
@@ -26,5 +28,8 @@ namespace dotBot.Models
         public int money { get; set; }
 
     }
+    
+
+    
 }
     
