@@ -1,15 +1,20 @@
 ﻿using dotBot.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using System.Diagnostics;
+
 
 namespace dotBot.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+		private readonly IConfiguration _configuration;
+		
 
-        public HomeController(ILogger<HomeController> logger)
+		public HomeController(IConfiguration configuration, ILogger<HomeController> logger)
         {
+            _configuration = configuration;
             _logger = logger;
         }
 
@@ -28,5 +33,19 @@ namespace dotBot.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-    }
+		private SqlDataReader sendSqlCommand(string textOfCommand)
+		{
+			SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+
+			connection.Open();
+			SqlCommand command = new SqlCommand();
+
+			command.Connection = connection;
+			command.CommandText = textOfCommand;
+
+			SqlDataReader reader = command.ExecuteReader();
+			return reader;
+		}
+
+	}
 }
